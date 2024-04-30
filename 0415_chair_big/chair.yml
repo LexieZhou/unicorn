@@ -60,4 +60,4 @@ training:
   val_stat_interval: 4000
   seed: 132422
   visualizer_port:
-  resume: chair_big
+  resume:

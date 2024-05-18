@@ -17,6 +17,13 @@ RUN apt-get update \
 ENV CONDA_DIR /opt/conda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda
+# Download VGG16 PyTorch model
+RUN mkdir -p /root/.cache/torch/hub/checkpoints
+RUN wget -O /root/.cache/torch/hub/checkpoints/vgg16-397923af.pth https://download.pytorch.org/models/vgg16-397923af.pth
+# Install u2net
+RUN mkdir -p /root/.u2net
+RUN wget --no-check-certificate -O /root/.u2net/u2net.onnx https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2net.onnx
+
 
 # Put conda in path so we can use conda activate
 ENV PATH=$CONDA_DIR/bin:$PATH
@@ -33,7 +40,8 @@ RUN echo "conda activate unicorn" > ~/.bashrc
 ENV PATH /opt/conda/envs/unicorn/bin:$PATH
 
 RUN /bin/bash -c "source activate unicorn \
-    && pip install rembg \
+    && pip install onnxruntime-gpu\
+    && pip install rembg[gpu] \
     && conda clean -afy"
 
 # Copy the remaining files to the container

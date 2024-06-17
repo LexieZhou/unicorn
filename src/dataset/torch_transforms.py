@@ -29,7 +29,7 @@ class SquarePad:
 
 
 class Resize:
-    def __init__(self, size, keep_aspect_ratio=True, resample=PIL.Image.ANTIALIAS, fit_inside=True):
+    def __init__(self, size, keep_aspect_ratio=True, resample=PIL.Image.LANCZOS, fit_inside=True):
         super().__init__()
         self.size = (size, size) if isinstance(size, int) else size
         self.keep_aspect_ratio = keep_aspect_ratio

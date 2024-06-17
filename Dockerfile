@@ -42,24 +42,8 @@ ENV PATH /opt/conda/envs/unicorn/bin:$PATH
 RUN /bin/bash -c "source activate unicorn \
     && pip install onnxruntime-gpu\
     && pip install rembg[gpu] \
+    && pip install setuptools==69.5.1 \
     && conda clean -afy"
 
 # Copy the remaining files to the container
 COPY . .
-
-# FROM continuumio/miniconda3:4.7.10
-
-# WORKDIR /app
-
-# COPY environment.yml .
-
-# RUN conda env create -f environment.yml
-
-# RUN echo "conda activate unicorn" > ~/.bashrc
-# ENV PATH /opt/conda/envs/unicorn/bin:$PATH
-
-# RUN /bin/bash -c "source activate unicorn \
-#     && pip install rembg \
-#     && conda clean -afy"
-
-# COPY . .
